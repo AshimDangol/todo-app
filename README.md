@@ -1,6 +1,6 @@
 # Todo App
 
-A React todo application with a login form and a table-based task list. Built with [Create React App](https://github.com/facebook/create-react-app) and [React Router](https://reactrouter.com/).
+A React todo application with a login form and a table-based task list.
 
 ## Features
 
