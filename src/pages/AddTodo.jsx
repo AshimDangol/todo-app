@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useTodos } from "../context/TodoContext";
 import { PRIORITIES } from "../context/TodoContext";
 
+const PRIORITY_DOTS = {
+  high: "bg-red-500",
+  medium: "bg-amber-500",
+  low: "bg-gray-400 dark:bg-gray-500",
+};
+
 export default function AddTodo() {
   const { addTask } = useTodos();
   const navigate = useNavigate();
@@ -55,13 +61,17 @@ export default function AddTodo() {
           <span className="block text-xs text-ink-500 mb-1">priority</span>
           <div className="flex gap-4">
             {PRIORITIES.map((p) => (
-              <label key={p} className="flex items-center gap-1.5 cursor-pointer text-sm">
+              <label key={p} className="flex items-center gap-2 cursor-pointer text-sm capitalize">
                 <input
                   type="radio"
                   name="priority"
                   value={p}
                   checked={priority === p}
                   onChange={() => setPriority(p)}
+                />
+                <span
+                  className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${PRIORITY_DOTS[p]}`}
+                  aria-hidden
                 />
                 {p}
               </label>

@@ -2,10 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTodos } from "../context/TodoContext";
 
+const PRIORITY_STYLES = {
+  high: {
+    dot: "bg-red-500",
+    label: "High priority",
+  },
+  medium: {
+    dot: "bg-amber-500",
+    label: "Medium priority",
+  },
+  low: {
+    dot: "bg-gray-400 dark:bg-gray-500",
+    label: "Low priority",
+  },
+};
+
 export default function TodoItem({ task, embedded }) {
   const { toggleTask, deleteTask } = useTodos();
   const { id, title, description, completed, priority } = task;
-  const p = (priority || "medium")[0].toUpperCase();
+  const priorityKey = (priority && PRIORITY_STYLES[priority]) ? priority : "medium";
+  const { dot, label } = PRIORITY_STYLES[priorityKey];
 
   return (
     <article
@@ -20,9 +36,12 @@ export default function TodoItem({ task, embedded }) {
         className="mt-0.5 h-4 w-4 flex-shrink-0 border-paper-300 dark:border-paper-600"
         aria-label={completed ? "Mark pending" : "Mark done"}
       />
-      <span className="text-[10px] text-ink-400 dark:text-ink-500 w-3 flex-shrink-0 mt-1 font-mono">
-        {p}
-      </span>
+      <span
+        className={`inline-block w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${dot}`}
+        title={label}
+        aria-label={label}
+        role="img"
+      />
       <div className="min-w-0 flex-1 py-0.5">
         <h3
           className={`${
